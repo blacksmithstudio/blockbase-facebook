@@ -13,6 +13,6 @@
   "author": "Alexandre Pereira <alex@blacksmith.studio>",
   "license": "MIT",
   "dependencies": {
-
+    "request": "^2.83.0"
   }
 }

@@ -2,7 +2,7 @@
 Compatible with Blockbase Framework
 
 ### Version
-0.0.1
+0.0.2
 
 ### How to install ?
 Facebook driver is really easy to use, first install it as any Blockbase driver.
