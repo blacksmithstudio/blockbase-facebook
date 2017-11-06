@@ -23,23 +23,25 @@ module.exports = (app) => {
          * grab fields infos from a connected facebook user
          * @param {[]} fields - array of fields to grab (see fb graph doc)
          * @param {string} token - access_token from the connected user
-         * @param {function} cb - callback
          */
-         me(fields, token, cb){
+         async me(fields, token){
             let url = `${host}me?fields=${fields.join(',')}&access_token=${token}`
-            request.get(url, (error, result, body) => {
-                if(error) return cb(error, null)
 
-                try{
-                    body = JSON.parse(body)
-                    if(!body || body.error)
-                        return cb('cannot parse object from fb', null)
+            return new Promise((resolve, reject) => {
+                request.get(url, (error, result, body) => {
+                    if(error) return reject(error, null)
 
-                    cb(null, body)
-                } catch(e) {
-                    Logger.error('Facebook verify token', e)
-                    cb(null, false)
-                }
+                    try{
+                        body = JSON.parse(body)
+                        if(!body || body.error)
+                            return reject('cannot parse object from fb')
+
+                        resolve(body)
+                    } catch(e) {
+                        Logger.error('Facebook verify token', e)
+                        reject(e)
+                    }
+                })
             })
         },
 
@@ -47,24 +49,26 @@ module.exports = (app) => {
          * verify token authenticity with user and app
          * @param {number} id - user facebook id
          * @param {string} token - access_token from the connected user
-         * @param {function} cb - callback returning true if valid 
          */
-        verify_token(id, token, cb){
+        async verify_token(id, token, cb){
             let url = `${host}debug_token?access_token=${app_id}|${app_secret}&input_token=${token}&format=json`
-            request.get(url, (error, result, body) => {
-                if(error) return cb(error, null)
 
-                try{
-                    body = JSON.parse(body)
-                    if(!body || !body.data || (body.data && body.data.error))
-                        return cb(null, false)
+            return new Promise((resolve, reject) => {
+                request.get(url, (error, result, body) => {
+                    if(error) return reject(error)
 
-                    let { data } = body
-                    cb(null, data.user_id == id && data.is_valid)
-                } catch(e) {
-                    Logger.error('Facebook verify token', e)
-                    cb(null, false)
-                }
+                    try{
+                        body = JSON.parse(body)
+                        if(!body || !body.data || (body.data && body.data.error))
+                            return resolve(false)
+
+                        let { data } = body
+                        resolve(data.user_id == id && data.is_valid)
+                    } catch(e) {
+                        Logger.error('Facebook verify token', e)
+                        reject(e)
+                    }
+                })
             })
         }
     }
