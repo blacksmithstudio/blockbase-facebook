@@ -1,6 +1,6 @@
 {
   "name": "@blacksmithstudio/blockbase-facebook",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "blockbase driver for Facebook related manipulations",
   "main": "driver.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org:blacksmithstudio/driver-facebook.git"
+    "url": "git+ssh://git@github.com:blacksmithstudio/blockbase-facebook.git"
   },
   "author": "Alexandre Pereira <alex@blacksmith.studio>",
   "license": "MIT",
