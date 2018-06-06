@@ -8,7 +8,7 @@ Compatible with Blockbase Framework
 Facebook driver is really easy to use, first install it as any Blockbase driver.
 
 ```shell
-$ npm i --save @blacksmithstudio/blockbase-facebook
+$ npm i --save blockbase-facebook
 ```
 
 ### Usage

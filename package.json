@@ -1,5 +1,5 @@
 {
-  "name": "@blacksmithstudio/blockbase-facebook",
+  "name": "blockbase-facebook",
   "version": "1.0.1",
   "description": "blockbase driver for Facebook related manipulations",
   "main": "driver.js",
